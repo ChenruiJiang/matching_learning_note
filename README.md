@@ -6,7 +6,4 @@
 [Markdown 教程](https://hacpai.com/guide/markdown)<br>
 
 ## 计算机视觉面试问题
-### 1.K-means的算法流程？与KNN的区别？
-K-means算法基本流程：
-1.初始化k个聚类中心$c_{1}$,$c_{2}$,...,$c_{k}$;
-2. $$a^2 + b^2 = \color{red}c^2$$
+### [计算机视觉及深度学习岗位应聘问题](https://blog.csdn.net/ferriswym/article/details/81331191)<br>
