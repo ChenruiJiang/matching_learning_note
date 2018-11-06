@@ -6,4 +6,17 @@
 [Markdown 教程](https://hacpai.com/guide/markdown)<br>
 
 ## 计算机视觉面试问题
-### [计算机视觉及深度学习岗位应聘问题](https://blog.csdn.net/ferriswym/article/details/81331191)<br>
+### SVM
+### PCA
+### K_means
+### KNN
+### 损失函数
+### 梯度消失和梯度弥散
+### SITF
+### Dropout
+### Pooling
+### Batch Normalization
+
+
+
+## [计算机视觉及深度学习岗位应聘问题](https://blog.csdn.net/ferriswym/article/details/81331191)<br>
