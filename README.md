@@ -7,6 +7,7 @@
 
 ## 计算机视觉面试问题
 ### [SVM](https://blog.csdn.net/v_july_v/article/details/7624837)<br>
+### [最优化方法](https://blog.csdn.net/xbmatrix/article/details/56682466)<br>
 ### PCA
 ### K_means
 ### KNN
