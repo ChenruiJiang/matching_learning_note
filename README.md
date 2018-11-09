@@ -20,6 +20,7 @@
 ### Batch Normalization
 ### L1正则化和L2正则化
 
-
+## 数据结构和算法问题
+### [堆和栈的区别](https://blog.csdn.net/hairetz/article/details/4141043)<br>
 
 ## [计算机视觉及深度学习岗位应聘问题](https://blog.csdn.net/ferriswym/article/details/81331191)<br>
