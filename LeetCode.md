@@ -39,6 +39,20 @@ mutiset：多重集合与set最大的区别是它可以插入重复元素，如�
 sort(a.begin(), a.end());
 //将所有字符转换成小写
 transform(s.begin(), s.end(), s.begin(),::tolower);
+//截取字符串
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+    string name("rockderia");
+    string firstname(name.substr(0,4));
+    cout << firstname << endl;
+
+    system("pause");
+}
 ```
 ## 运算
 异或（^）：二进制数进行运算相同为0，不同为1
