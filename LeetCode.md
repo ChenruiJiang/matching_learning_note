@@ -40,19 +40,10 @@ sort(a.begin(), a.end());
 //将所有字符转换成小写
 transform(s.begin(), s.end(), s.begin(),::tolower);
 //截取字符串
-#include <iostream>
-#include <string>
+//标准库的string有一个substr函数用来截取子字符串。一般使用时传入两个参数，第一个是开始的坐标（第一个字符是0），第二个是截取的长度。
+string name("rockderia");
+string firstname(name.substr(0,4));
 
-using namespace std;
-
-int main(int argc, char* argv[])
-{
-    string name("rockderia");
-    string firstname(name.substr(0,4));
-    cout << firstname << endl;
-
-    system("pause");
-}
 ```
 ## 运算
 异或（^）：二进制数进行运算相同为0，不同为1
