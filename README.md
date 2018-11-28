@@ -8,7 +8,7 @@
 ## 计算机视觉面试问题
 ### [SVM](https://blog.csdn.net/v_july_v/article/details/7624837)<br>
 ### [CNN](https://blog.csdn.net/fengbingchun/article/details/50529500)<br>
-### [ShuffleNet}:https://blog.csdn.net/u011974639/article/details/79200559<br>
+### [ShuffleNet]:https://blog.csdn.net/u011974639/article/details/79200559<br>
 ### [最优化方法](http://www.cnblogs.com/maybe2030/p/4751804.html#_label0)<br>
 1.[数学概念](https://blog.csdn.net/majinlei121/article/details/47260917)<br>
 ### PCA
