@@ -9,7 +9,7 @@
 ### [SVM](https://blog.csdn.net/v_july_v/article/details/7624837)<br>
 ### [CNN](https://blog.csdn.net/fengbingchun/article/details/50529500)<br>
 ### [softmax函数](https://blog.csdn.net/u014380165/article/details/77284921)<br>
-### agmid
+### data augmentation
 ### 正则化
 ### 网络参数是如何计算的
 ### [ShuffleNet](https://blog.csdn.net/u011974639/article/details/79200559)<br>
