@@ -11,6 +11,7 @@
 ### softmax函数
 ### agmid
 ### 正则化
+### 网络参数是如何计算的
 ### [ShuffleNet](https://blog.csdn.net/u011974639/article/details/79200559)<br>
 ### [最优化方法](http://www.cnblogs.com/maybe2030/p/4751804.html#_label0)<br>
 1.[数学概念](https://blog.csdn.net/majinlei121/article/details/47260917)<br>
