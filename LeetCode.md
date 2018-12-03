@@ -3,6 +3,8 @@
 ```c++
 //元素交换
 swap(a[1], a[3]);
+//sort排序
+sort(a.begin(),a.end());
 //数组颠倒
 reverse(a.begin(), a.end());
 //数组元素置为0
