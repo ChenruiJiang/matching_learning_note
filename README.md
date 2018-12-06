@@ -29,6 +29,7 @@
 <br>
 
 ## 数据结构和算法问题
+### [线性代数](https://www.cnblogs.com/guoyaohua/p/9803027.html)<br>
 ### [堆和栈的区别](https://blog.csdn.net/hairetz/article/details/4141043)<br>
 ### [LeetCode刷题总结](https://github.com/holyhond/Interview-question-collection/blob/master/LeetCode.md)<br>
 
