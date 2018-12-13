@@ -23,7 +23,7 @@
 ### PCA
 ### K_means
 ### KNN
-### 损失函数
+### [损失函数](https://blog.csdn.net/kangyi411/article/details/78969642)<br>
 ### 梯度消失和梯度弥散
 ### SITF
 ### Dropout
