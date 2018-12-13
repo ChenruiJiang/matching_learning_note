@@ -19,6 +19,7 @@
 1.[数学概念](https://blog.csdn.net/majinlei121/article/details/47260917)<br>
 ### [RNN](https://blog.csdn.net/heyongluoyao8/article/details/48636251)<br>
 ### [LSTM](https://blog.csdn.net/gzj_1101/article/details/79376798)<br>
+### [RPN](https://blog.csdn.net/sloanqin/article/details/51545125)<br>
 ### PCA
 ### K_means
 ### KNN
