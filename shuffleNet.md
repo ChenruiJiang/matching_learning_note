@@ -33,7 +33,7 @@
 
 ### 对分组卷积的通道混洗
 
-@import "E:\python\picture\ShuffleNet_figure 1.png" <br>
+![Figure1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_figure_1.png) <br>
 &emsp;&emsp;现在的卷积神经网络通常由相同结构组成的重复模块构成。1x1的卷积没有全部采用的原因是1x1卷积需要相当大的复杂度.在小网络中，昂贵的逐点卷积会因复杂度限制而控制通道数量，这可能显著地减少准确率。<br>
 &emsp;&emsp;解决这个问题的直接方案是通道稀疏连接，比如包括1x1卷积的分组卷积。确保每个输入通道组上进行相应的卷积，组卷积就会显著地降低计算成本。但是这会带来新的问题：一些通道的输出仅仅来源于输入通道的一小部分。图1（a）说明了这种情况。很明显地看出，每个输出组只与它的输入组之间有联系。这个特性阻隔了通道组和弱表示的信息流动。<br>
 &emsp;&emsp;
