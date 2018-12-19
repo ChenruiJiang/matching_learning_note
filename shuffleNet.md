@@ -33,24 +33,24 @@
 
 ### 3.1.对分组卷积的通道混洗
 
-![Figure1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_figure_1.png)
-&emsp;&emsp;现在的卷积神经网络通常由相同结构组成的重复模块构成。1x1的卷积没有全部采用的原因是1x1卷积需要相当大的复杂度.在小网络中，昂贵的逐点卷积会因复杂度限制而控制通道数量，这可能显著地减少准确率。
-&emsp;&emsp;解决这个问题的直接方案是<font color=#ff000 size=3>通道稀疏连接</font>，比如包括1x1卷积的分组卷积。确保每个输入通道组上进行相应的卷积，组卷积就会显著地降低计算成本。但是这会带来新的问题：一些通道的输出仅仅来源于输入通道的一小部分。图1（a）说明了这种情况。很明显地看出，每个输出组只与它的输入组之间有联系。这个特性阻隔了通道组和弱表示的信息流动。
-&emsp;&emsp;如果我们允许分组卷积可以从不同的组中获得输入数据，(如Figure1(b)),输入通道和输出通道就会全部建立联系。对于上一层分组卷积产生的特征图，我们可以把每个组的通道分离成更小的组，然后将这些组随机排序作为下一层网络每个组的输入。这个操作可以使用通道卷积方便快捷地实现（如Figure1（c））：计算拥有$g*n$个通道数g个组的卷积层；我们需要先将数据改变形状变为$(g,n)$,然后转换和扁平化作为下一层的输入。在其中我们注意到这个操作在经过两层不同分组的卷积后依然有效。更重要的是，通道混洗过程是十分微小的，这意味着它能够嵌入到端对端的网络训练中。
+![Figure1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_figure_1.png)  
+&emsp;&emsp;现在的卷积神经网络通常由相同结构组成的重复模块构成。1x1的卷积没有全部采用的原因是1x1卷积需要相当大的复杂度.在小网络中，昂贵的逐点卷积会因复杂度限制而控制通道数量，这可能显著地减少准确率.  
+&emsp;&emsp;解决这个问题的直接方案是<font color=#ff000 size=3>通道稀疏连接</font>，比如包括1x1卷积的分组卷积。确保每个输入通道组上进行相应的卷积，组卷积就会显著地降低计算成本。但是这会带来新的问题：一些通道的输出仅仅来源于输入通道的一小部分。图1（a）说明了这种情况。很明显地看出，每个输出组只与它的输入组之间有联系。这个特性阻隔了通道组和弱表示的信息流动。  
+&emsp;&emsp;如果我们允许分组卷积可以从不同的组中获得输入数据，(如Figure1(b)),输入通道和输出通道就会全部建立联系。对于上一层分组卷积产生的特征图，我们可以把每个组的通道分离成更小的组，然后将这些组随机排序作为下一层网络每个组的输入。这个操作可以使用通道卷积方便快捷地实现（如Figure1（c））：计算拥有$g*n$个通道数g个组的卷积层；我们需要先将数据改变形状变为$(g,n)$,然后转换和扁平化作为下一层的输入。在其中我们注意到这个操作在经过两层不同分组的卷积后依然有效。更重要的是，通道混洗过程是十分微小的，这意味着它能够嵌入到端对端的网络训练中。  
 &emsp;&emsp;通道混洗操作使得使用大量分组卷积层的有效网络变得可能.在下一个部分我们将介绍一个使用分组卷积和通道混洗结构的有效的网络单元。
 
 ### 3.2.ShuffleNet单元
 
-![Figure2](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_figure_2.png)
-&emsp;&emsp;基于通道混洗操作的优点，我们提出了专门为小网络设计的新结构ShuffleNet单元。我们的设计基于ResNet的bottleneck模块（如Figure2（a））。这是一个残差模块。在他的残差分支中，我们在bottleneck模块的特征图提取模块采用了适合运算的3x3的深度卷积。之后，我们将第一个1x1卷积替代为逐点群卷积，之后进行通道混洗，这样来组成ShuffleNet单元，如Figure2（b）。第二个逐点群卷积的作用是将通道恢复到与捷径路线相同的尺寸。简单来说，我们在第二个逐点群卷积后并没有采用通道混洗，因为采用与否对结果没有影响。在ShuffleNet单元哪个位置设置步长的问题上，我们简单地进行了两个修改（如Figure2（c））：在捷径路线上添加3x3的平均值池化层；使用<font color=#ff000 size=3>通道级联（channel concatenation)</font>代替元素相加，这样可以在很少的额外计算下扩大通道尺寸。
-&emsp;&emsp;与ResNet和RexNeXt相比较，我们的模型有更少的计算量。输入为$c*h*w$bottleneck通道数为m,ResNet单元要求$hw(2cm+9m^2)$FLOPs，ResNeXt党员要求$hw(2cm+9m^2/g)$FLOPs。ShuffleNet单元需要$hw(2cm/g+9m)$FLOPs，g是卷积的分组数。换句话说，在相同的计算量预算下，ShuffleNet可以使用更广泛的特征图。我们发现这对小网络是十分重要的，因为小网络在获取信息的过程中通道数量是不足的。
+![Figure2](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_figure_2.png)  
+&emsp;&emsp;基于通道混洗操作的优点，我们提出了专门为小网络设计的新结构ShuffleNet单元。我们的设计基于ResNet的bottleneck模块（如Figure2（a））。这是一个残差模块。在他的残差分支中，我们在bottleneck模块的特征图提取模块采用了适合运算的3x3的深度卷积。之后，我们将第一个1x1卷积替代为逐点群卷积，之后进行通道混洗，这样来组成ShuffleNet单元，如Figure2（b）。第二个逐点群卷积的作用是将通道恢复到与捷径路线相同的尺寸。简单来说，我们在第二个逐点群卷积后并没有采用通道混洗，因为采用与否对结果没有影响。在ShuffleNet单元哪个位置设置步长的问题上，我们简单地进行了两个修改（如Figure2（c））：在捷径路线上添加3x3的平均值池化层；使用<font color=#ff000 size=3>通道级联（channel concatenation)</font>代替元素相加，这样可以在很少的额外计算下扩大通道尺寸。  
+&emsp;&emsp;与ResNet和RexNeXt相比较，我们的模型有更少的计算量。输入为$c*h*w$bottleneck通道数为m,ResNet单元要求$hw(2cm+9m^2)$FLOPs，ResNeXt党员要求$hw(2cm+9m^2/g)$FLOPs。ShuffleNet单元需要$hw(2cm/g+9m)$FLOPs，g是卷积的分组数。换句话说，在相同的计算量预算下，ShuffleNet可以使用更广泛的特征图。我们发现这对小网络是十分重要的，因为小网络在获取信息的过程中通道数量是不足的。  
 &emsp;&emsp;另外，ShuffleNet深度卷积仅应用于bottleneck特征图。虽然深度卷积在理论上有很少的计算量，但我们发现将它移植到低功耗的移动设备上是十分困难的，与其他密集网络相比，ShuffleNet网络可能会在计算与内存存取上存在不平衡。
 
 ### 3.3.网络结构
 
-![Table 1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_table_1.png)
-&emsp;&emsp;基于ShuffleNet单元，我们建立了如Table 1的ShuffleNet网络结构。提出的网络主要是由三个阶段聚集组成的ShuffleNet单元组成的。每个阶段首先建立的模块采用的步长为2.其它的超参数设置相同，并且下一个阶段的输出通道数翻倍。我们将bottleneck的通道数设置为输出通道的1/4.我们打算提供一种尽可能简单的基本设计，尽管我们发现进一步的超参数设置可能会带来更好的结果。
-&emsp;&emsp;在ShuffleNet单元中，分组数g控制着逐点卷积的稀疏性。Table 1展示了不同组数的效果，我们采用的输出通道数尽可能使复杂度不变。效果十分明显，在相同的复杂度下大的分组导致更多的输出通道（这也意味着更多的卷积核），这意味着在输入通道有限的情况下大分组可以编码更多的信息。
+![Table 1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_table_1.png)  
+&emsp;&emsp;基于ShuffleNet单元，我们建立了如Table 1的ShuffleNet网络结构。提出的网络主要是由三个阶段聚集组成的ShuffleNet单元组成的。每个阶段首先建立的模块采用的步长为2.其它的超参数设置相同，并且下一个阶段的输出通道数翻倍。我们将bottleneck的通道数设置为输出通道的1/4.我们打算提供一种尽可能简单的基本设计，尽管我们发现进一步的超参数设置可能会带来更好的结果。  
+&emsp;&emsp;在ShuffleNet单元中，分组数g控制着逐点卷积的稀疏性。Table 1展示了不同组数的效果，我们采用的输出通道数尽可能使复杂度不变。效果十分明显，在相同的复杂度下大的分组导致更多的输出通道（这也意味着更多的卷积核），这意味着在输入通道有限的情况下大分组可以编码更多的信息。  
 &emsp;&emsp;Table 1是网络的完全体，之后的ShuffleNet $s*$意味着网络的复杂度大致是原网络的$s^2$.
 
 ## 实验
