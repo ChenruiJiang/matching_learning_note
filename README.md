@@ -1,10 +1,12 @@
 # Interview-question-collection
-收集面试问题及答案<br>
 
-[GItHub使用指南](https://blog.csdn.net/Hanani_Jia/article/details/77950594)<br>
-[GitHub 编辑指导](https://blog.csdn.net/ljc_563812704/article/details/53464039)<br>
-[GItHub 公式编辑](https://www.jianshu.com/p/fd97e1f8f699)<br>
-[Markdown 教程](https://hacpai.com/guide/markdown)<br>
+[toc]
+收集面试问题及答案
+
+[GItHub使用指南](https://blog.csdn.net/Hanani_Jia/article/details/77950594)  
+[GitHub 编辑指导](https://blog.csdn.net/ljc_563812704/article/details/53464039)  
+[GItHub 公式编辑](https://www.jianshu.com/p/fd97e1f8f699)  
+[Markdown 教程](https://hacpai.com/guide/markdown)  
 
 ## 计算机视觉面试问题
 ### [SVM](https://blog.csdn.net/v_july_v/article/details/7624837)<br>
@@ -15,6 +17,7 @@
 ### 正则化
 ### 网络参数是如何计算的
 ### [ShuffleNet](https://blog.csdn.net/u011974639/article/details/79200559)<br>
+### [我对ShuffleNet的理解](https://github.com/holyhond/Interview-question-collection/blob/master/shuffleNet.md)
 ### [最优化方法](http://www.cnblogs.com/maybe2030/p/4751804.html#_label0)<br>
 1.[数学概念](https://blog.csdn.net/majinlei121/article/details/47260917)<br>
 ### [RNN](https://blog.csdn.net/heyongluoyao8/article/details/48636251)<br>
@@ -30,7 +33,6 @@
 ### Pooling
 ### Batch Normalization
 ### L1正则化和L2正则化
-<br>
 
 ## 数据结构和算法问题
 ### [线性代数](https://www.cnblogs.com/guoyaohua/p/9803027.html)<br>
