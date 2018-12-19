@@ -46,7 +46,7 @@
 &emsp;&emsp;与ResNet和RexNeXt相比较，我们的模型有更少的计算量。输入为$c*h*w$bottleneck通道数为m,ResNet单元要求$hw(2cm+9m^2)$FLOPs，ResNeXt党员要求$hw(2cm+9m^2/g)$FLOPs。ShuffleNet单元需要$hw(2cm/g+9m)$FLOPs，g是卷积的分组数。换句话说，在相同的计算量预算下，ShuffleNet可以使用更广泛的特征图。我们发现这对小网络是十分重要的，因为小网络在获取信息的过程中通道数量是不足的。
 &emsp;&emsp;另外，ShuffleNet深度卷积仅应用于bottleneck特征图。虽然深度卷积在理论上有很少的计算量，但我们发现将它移植到低功耗的移动设备上是十分困难的，与其他密集网络相比，ShuffleNet网络可能会在计算与内存存取上存在不平衡。
 
-### 网络结构
+### 3.3.网络结构
 
 ![Table 1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_table_1.png)
 &emsp;&emsp;基于ShuffleNet单元，我们建立了如Table 1的ShuffleNet网络结构。提出的网络主要是由三个阶段聚集组成的ShuffleNet单元组成的。每个阶段首先建立的模块采用的步长为2.其它的超参数设置相同，并且下一个阶段的输出通道数翻倍。我们将bottleneck的通道数设置为输出通道的1/4.我们打算提供一种尽可能简单的基本设计，尽管我们发现进一步的超参数设置可能会带来更好的结果。
