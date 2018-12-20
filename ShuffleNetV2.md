@@ -35,14 +35,31 @@
 
 ### G1)相同的通道可以最小化内存存取消耗  
 
-&emsp;&emsp;现在的网络通常采用深度分离卷积，在深度分离卷积中，1x1的卷积占据了绝大部分复杂度。我们开始研究1x1卷积。1x1卷积由两个参数来表示，输入通道数$c_{1}$,输出通道数为$c_{2}$。h和w是特征图的长和宽，1x1卷积的FLOPs是$B=hwc_{1}c_{2}$。  
-&emsp;&emsp;为了简化计算，我们假定计算设备足够存储全部的特征图和参数，这样的话，内存存储消耗$MAC=hw(c_{1}+c_{2})+c_{1}c_{2}$。从均值不等的情况，我们可以得出:$$MAC\geq 2\sqrt{hwB}+\frac{B}{hw}(1)$$  
+&emsp;&emsp;现在的网络通常采用深度分离卷积，在深度分离卷积中，1x1的卷积占据了绝大部分复杂度。我们开始研究1x1卷积。1x1卷积由两个参数来表示，输入通道数$c_{1}$,输出通道数为$c_{2}$。h和w是特征图的长和宽，1x1卷积的FLOPs是$$B=hwc_{1}c_{2}$$  
+&emsp;&emsp;为了简化计算，我们假定计算设备足够存储全部的特征图和参数，这样的话，内存存储消耗$$MAC=hw(c_{1}+c_{2})+c_{1}c_{2}$$从均值不等的情况，我们可以得出:$$MAC\geq 2\sqrt{hwB}+\frac{B}{hw}(1)$$  
 &emsp;&emsp;从公式（1）可以看出，<font color=#ff000 size=3>MAC的下限被FLOPs捆绑，输入通道数等于输出通道数的时候MAC达到最小。</font>  
 &emsp;&emsp;这个结论只是理论上，实际中很多设备的缓存没有假设的那么大，而且现代计算库通常采用复杂的阻塞策略来充分利用缓存机制。因此，真实的MAC值肯能会偏离理论上的值。为了证实我们的结论，我们随后进行了实验，通过重复堆叠10个构建块来构建基准网络，每一个块包括两个卷积层，第一层输入通道为$c_{1}$，输出通道为$c_{2}$，下一层网络与之相反。  
 &emsp;&emsp;表1展示了实验结果，当输入输出通道数比值为1：1时，可以看出MAC值会变得更小并且网络计算速度会更快。  
 @import "E:\GitHub\Interview-question-collection\picture\ShuffleNetV2_table1.png"  
 ![Table1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNetV2_table1.png)  
 
-### 过大的分组卷积会提高MAC  
+### G2)过大的分组卷积会提高MAC  
+
+&emsp;&emsp;目前分组卷积是很多先进网络的核心部分，它通过将密集卷积的通道分组进行卷积来减少计算复杂度（FLOPs），因此它可以在与传统结构在FLOPs相同的情况下使用更多的通道，进而提升模型的性能。但是，提升的通道数导致了更大的MAC。  
+&emsp;&emsp;从（1）的公式进行推导，FLOPs的值$$B=hwc_{1}c_{2}/g$$1x1的分组卷积中MAC和FLOPs的关系为：$$MAC=hw(c_{1}+c_{2})+\frac{c_{1}c_{2}}{g}$$$$=hwc_{1}+\frac{Bg}{c_{1}}+\frac{B}{hw}(2)$$g是分组数。从公式中可以看出，在给定输入尺寸$c_{1}*h*w$和计算量B,MAC的值与g的值正相关。  
+&emsp;&emsp;为了研究在实践过程中的有效性，我们堆积了10个逐点组卷积来构建基准网络。表2展示了在相同的FLOPs情况下运行速度的差异。从表中可以清晰地看出分组数对运行速度的影响。对比分组数为1和分组数为8的实验结果可以看出，分组数为8的模型运行速度是分组数为1的一倍，在ARM上的数独也慢了30%。  
+@import "E:\Github\Interview-question-collection\picture\ShuffleNetV2_table2.png"  
+![Table2](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNetV2_table2.png)  
+&emsp;&emsp;因此，我们建议分组数应该基于目标平台和任务认真选择。简单地增加分组数愚蠢的，因为这在曾加准确率的同时也会增加计算量，很可能得不偿失。
+
+### 分裂网络会减少并行度  
+
+&emsp;&emsp;在GoogleNet的一系列网络和自动生成网络中，大量采用的了“多径”网络来提高准确率。使用小的操作（分裂网络）来代替一些大网络会带来准确率的提升，但是由于这种操作对大型计算设备如GPU的并行性不是很友好，而且会在内核启动和同步的时候带来额为消耗，因此它会增加计算量。  
+&emsp;&emsp;为了量化分裂网络是如何影响效率的，我们使用不同数量的分类网络制作了一系列网络模块进行实验。每个网络模块包含1-4个1x1的卷积，如何将10个这样的模块堆积在一起组成一个网络，然后它们进行顺序运算或者并行运算。进行的实验效果如表3所示。  
+@import "E:\Github\Interview-question-collection\picture\ShuffleNetV2_table3.png"  
+![Table3](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNetV2_table3.png)  
+&emsp;&emsp;表3展示了分裂网络显著地降低了GPU的速度，比如4个分裂网络结构的速度只有1个分类网络结构的1/3。在ARM上的减少相对来说很小。  
+
+### 逐像素操作不可忽视  
 
 &emsp;&emsp;
