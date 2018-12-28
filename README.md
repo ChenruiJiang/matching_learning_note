@@ -1,7 +1,7 @@
-# Interview-question-collection
+# match-learning
 
 [toc]  
-收集面试问题及答案
+机器学习笔记
 
 [GItHub使用指南](https://blog.csdn.net/Hanani_Jia/article/details/77950594)  
 [GitHub 编辑指导](https://blog.csdn.net/ljc_563812704/article/details/53464039)  
