@@ -43,7 +43,7 @@
 
 ![Figure2](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNet_figure_2.png)  
 &emsp;&emsp;基于通道混洗操作的优点，我们提出了专门为小网络设计的新结构ShuffleNet单元。我们的设计基于ResNet的bottleneck模块（如Figure2（a））。这是一个残差模块。在他的残差分支中，我们在bottleneck模块的特征图提取模块采用了适合运算的3x3的深度卷积。之后，我们将第一个1x1卷积替代为逐点群卷积，之后进行通道混洗，这样来组成ShuffleNet单元，如Figure2（b）。第二个逐点群卷积的作用是将通道恢复到与捷径路线相同的尺寸。简单来说，我们在第二个逐点群卷积后并没有采用通道混洗，因为采用与否对结果没有影响。在ShuffleNet单元哪个位置设置步长的问题上，我们简单地进行了两个修改（如Figure2（c））：在捷径路线上添加3x3的平均值池化层；使用<font color=#ff000 size=3>通道级联（channel concatenation)</font>代替元素相加，这样可以在很少的额外计算下扩大通道尺寸。  
-&emsp;&emsp;与ResNet和RexNeXt相比较，我们的模型有更少的计算量。输入为$c*h*w$bottleneck通道数为m,ResNet单元要求$hw(2cm+9m^2)$FLOPs，ResNeXt党员要求$hw(2cm+9m^2/g)$FLOPs。ShuffleNet单元需要$hw(2cm/g+9m)$FLOPs，g是卷积的分组数。换句话说，在相同的计算量预算下，ShuffleNet可以使用更广泛的特征图。我们发现这对小网络是十分重要的，因为小网络在获取信息的过程中通道数量是不足的。  
+&emsp;&emsp;与ResNet和RexNeXt相比较，我们的模型有更少的计算量。输入为$c*h*w$bottleneck通道数为m,ResNet单元要求$hw(2cm+9m^2)$FLOPs，ResNeXt单元要求$hw(2cm+9m^2/g)$FLOPs。ShuffleNet单元需要$hw(2cm/g+9m)$FLOPs，g是卷积的分组数。换句话说，在相同的计算量预算下，ShuffleNet可以使用更广泛的特征图。我们发现这对小网络是十分重要的，因为小网络在获取信息的过程中通道数量是不足的。  
 &emsp;&emsp;另外，ShuffleNet深度卷积仅应用于bottleneck特征图。虽然深度卷积在理论上有很少的计算量，但我们发现将它移植到低功耗的移动设备上是十分困难的，与其他密集网络相比，ShuffleNet网络可能会在计算与内存存取上存在不平衡。
 
 ### 3.3.网络结构
