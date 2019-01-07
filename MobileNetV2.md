@@ -33,7 +33,7 @@
 ### 3.2.线性瓶颈  
 
 @import "E:\GitHub\Interview-question-collection\picture\MobileNetV2_Figure1.png"  
-![Figure1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/MobielNetV2_Figure1.png)  
+![Figure1](https://github.com/holyhond/Interview-question-collection/blob/master/picture/MobileNetV2_Figure1.png)  
 &emsp;&emsp;思考一个深度神经网络由n层组成$L_{i}$，每个$L_{i}$有$h_{i}*w_{i}*d_{i}$激活张量。这节我们讨论这些张量的基础特性，我们将这些张量视为$h_{i}*w_{i}$个像素点的$d_{i}$维的容器。非正式地，对于一个真实图片的输入集合，我们说激活层集合组成了“多方面兴趣”。长期以来，人们一直以为神经网络的多方面兴趣可以嵌入到低维的子空间中。换句话说，当我们查看深度卷积层的所有单个d通道像素时，在这些值中编码的信息实际上位于某些流形中，而这些流形又可嵌入到低维子空间中。  
 &emsp;&emsp;乍一看，这些事实可以简单地通过减少层的尺寸来捕获和利用从而减少操作空间的尺寸。这在MobileNetV1中成功地通过宽度乘数有效地平衡计算量和准确率。遵循这种直觉，这种宽度乘数方法允许人们减少激活空间的尺寸，直到感兴趣的流体经过整个空间。然而，当我们回想深度卷积网络实际上在每次坐标变换时都有非线性时比如ReLU，这种直觉会崩溃。例如，应用于1D空间中的线的ReLU产生“射线”，与在Rn空间中一样，它通常产生具有n关节的分段线性曲线。  
 @import "E:\GitHub\Interview-question-collection\picture\MobileNetV2_Figure2.png"  
