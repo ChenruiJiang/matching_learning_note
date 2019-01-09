@@ -48,7 +48,7 @@
 &emsp;&emsp;目前分组卷积是很多先进网络的核心部分，它通过将密集卷积的通道分组进行卷积来减少计算复杂度（FLOPs），因此它可以在与传统结构在FLOPs相同的情况下使用更多的通道，进而提升模型的性能。但是，提升的通道数导致了更大的MAC。  
 &emsp;&emsp;从（1）的公式进行推导，FLOPs的值$$B=hwc_{1}c_{2}/g$$
 &emsp;&emsp;1x1的分组卷积中MAC和FLOPs的关系为：$$MAC=hw(c_{1}+c_{2})+\frac{c_{1}c_{2}}{g}$$$$=hwc_{1}+\frac{Bg}{c_{1}}+\frac{B}{hw}(2)$$
-&emsp;&emsp;g是分组数。从公式中可以看出，在给定输入尺寸$c_{1}*h*w$和计算量B,MAC的值与g的值正相关。  
+&emsp;&emsp;g是分组数。从公式中可以看出，在给定输入尺寸$c_{1}*h*w$和计算量B，MAC的值与g的值正相关。  
 &emsp;&emsp;为了研究在实践过程中的有效性，我们堆积了10个逐点组卷积来构建基准网络。表2展示了在相同的FLOPs情况下运行速度的差异。从表中可以清晰地看出分组数对运行速度的影响。对比分组数为1和分组数为8的实验结果可以看出，分组数为8的模型运行速度是分组数为1的一倍，在ARM上的数独也慢了30%。  
 @import "E:\Github\Interview-question-collection\picture\ShuffleNetV2_table2.png"  
 ![Table2](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNetV2_table2.png)  
@@ -64,8 +64,8 @@
 
 ### G4)逐像素操作不可忽视  
 
-&emsp;&emsp;如图2所示，在轻量级网络中逐像素操作在时间上占据了很大一部分，特别是在GPU上。在我们文章中，逐像素操作包括ReLU，AddTensor,AddBias等等。它们有很小的FLOPs但是在有着很大的MAC。我们将深度卷积也作为逐像素的一员，因为它的MAC与FLOPs的比值很高。  
-&emsp;&emsp;为了验证我们的猜想，我们使用“bottleck”单元进行了实验，分别去除ReLU和短路连接，在表4中可以看到实验结果。当两个操作都被去除时，在GPU和ARM上都会得到20%的加速。  
+&emsp;&emsp;如图2所示，在轻量级网络中逐像素操作在时间上占据了很大一部分，特别是在GPU上。在我们文章中，逐像素操作包括ReLU，AddTensor，AddBias等等。它们有很小的FLOPs但是在有着很大的MAC。我们将深度卷积也作为逐像素的一员，因为它的MAC与FLOPs的比值很高。  
+&emsp;&emsp;为了验证我们的猜想，我们使用“bottlenecks”单元进行了实验，分别去除ReLU和短路连接，在表4中可以看到实验结果。当两个操作都被去除时，在GPU和ARM上都会得到20%的加速。  
 @import "E:\GitHub\Interview-question-collection\picture\ShuffleNetV2_Table4.png"  
 ![Table4](https://github.com/holyhond/Interview-question-collection/blob/master/picture/ShuffleNetV2_table4.png)  
 
