@@ -20,7 +20,7 @@
 
 ### data augmentation  
 
-### 正则化  
+### [正则化](https://blog.csdn.net/kyang624823/article/details/78646234)  
 
 ### 网络参数是如何计算的  
 
