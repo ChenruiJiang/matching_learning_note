@@ -14,6 +14,8 @@
 
 ### [CNN](https://blog.csdn.net/fengbingchun/article/details/50529500)  
 
+[常见网络收集](https://blog.csdn.net/weixin_42111770/article/details/80719302)  
+
 ### [softmax函数](https://blog.csdn.net/u014380165/article/details/77284921)  
 
 ### [attention](https://blog.csdn.net/guohao_zhang/article/details/79540014)  
@@ -65,7 +67,5 @@
 ### [线性代数](https://www.cnblogs.com/guoyaohua/p/9803027.html)  
 
 ### [堆和栈的区别](https://blog.csdn.net/hairetz/article/details/4141043)  
-
-### [LeetCode刷题总结](https://github.com/holyhond/Interview-question-collection/blob/master/LeetCode.md)  
 
 ## [计算机视觉及深度学习岗位应聘问题](https://blog.csdn.net/ferriswym/article/details/81331191)  
